@@ -15,3 +15,8 @@ model.hparams.lr = lr_finder.suggestion()
 
 
 ![Image](https://user-images.githubusercontent.com/50166164/202942637-e3674ee5-56ae-4ffb-830d-d5e42fb91072.PNG)
+
+Run using terminal
+```python
+python auto_lr_finder.py --batch_size=256 --device=cuda:2 
+```
