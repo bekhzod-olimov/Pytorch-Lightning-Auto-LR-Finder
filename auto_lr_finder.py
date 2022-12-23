@@ -2,7 +2,6 @@ import os, argparse, yaml, torch, torchvision, timm, pickle, wandb, AutoAugment
 from datetime import datetime
 import pytorch_lightning as pl
 from torch.nn import *
-import torch.utils.data as data
 from pytorch_lightning.callbacks import LearningRateMonitor, ModelCheckpoint
 from torchvision import transforms
 from torch.utils.data import DataLoader
@@ -12,10 +11,7 @@ from pytorch_lightning.loggers import WandbLogger
 from collections import OrderedDict as OD
 from sketch_dataset import SketchyImageDataset
 from collections import namedtuple as NT
-from softdataset import TripletImageDataset, data_split
-from original_dataset import OriginalImageDataset, data_split
 from tqdm import tqdm
-import torchvision.transforms.functional as TF
 
 def run(args):
     
