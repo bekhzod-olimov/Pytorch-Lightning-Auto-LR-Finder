@@ -175,9 +175,9 @@ def run(args):
                 sim = cos(fm_ims[idx].unsqueeze(0), fm_poss[idx]) 
                 cos_sims.append(sim)
                 vals, inds = torch.topk(lbl_ims[idx], k=3)
-                if regs[idx] in inds:
+                if regs[idx] == regs[inds[0]] or regs[idx] == regs[inds[1]] or regs[idx] == regs[inds[2]]:
                     top3 += 1
-                if regs[idx] in inds[0]:
+                if regs[idx] in regs[inds[0]]:
                     top1 += 1
 
             return OD([('loss', loss)]) 
@@ -219,9 +219,9 @@ def run(args):
                 sim = cos(fm_ims[idx].unsqueeze(0), fm_poss[idx]) 
                 cos_sims.append(sim)
                 vals, inds = torch.topk(lbl_ims[idx], k=3)
-                if regs[idx] in inds:
+                if regs[idx] == regs[inds[0]] or regs[idx] == regs[inds[1]] or regs[idx] == regs[inds[2]]:
                     top3 += 1
-                if regs[idx] in inds[0]:
+                if regs[idx] in regs[inds[0]]:
                     top1 += 1
 
             # Logs the loss per epoch to tensorboard (weighted average over batches)
