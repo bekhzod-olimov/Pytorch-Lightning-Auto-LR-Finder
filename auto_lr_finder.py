@@ -41,31 +41,20 @@ def run(args):
     transformations['qry'] = transforms.Compose([
                             transforms.Resize((224,224)),
                             AutoAugment.ImageNetPolicy(),
-                            # transforms.RandomHorizontalFlip(),
-                            # transforms.RandomRotation(90, fill = fill),
-                            # transforms.ColorJitter([0.3, 1]),
-                            # transforms.GaussianBlur(9, (0.5, 3.0)),
-                            transforms.ToTensor(),
-                                                  ])
+                            transforms.ToTensor()])
 
     transformations['pos'] = transforms.Compose([
         transforms.Resize((224,224)),
         AutoAugment.ImageNetPolicy(),
-        # transforms.RandomRotation(90, fill = fill_sketch),
-        # transforms.RandomPerspective(distortion_scale = distortion_scale, p = p, fill = fill_sketch),
-        transforms.ToTensor(),
-    ])  
+        transforms.ToTensor()])  
+    
     transformations['neg'] = transforms.Compose([
         transforms.Resize((224,224)),
         AutoAugment.ImageNetPolicy(),
-        # transforms.RandomRotation(90, fill = fill_sketch),
-        # transforms.RandomPerspective(distortion_scale = distortion_scale, p = p, fill = fill_sketch),
-        transforms.ToTensor(),
-    ])
+        transforms.ToTensor()])
     
     out_path = "data/sketchy_database_256_soft_split_cat.json"
-    # out_path = data_split(path, out_path)
-
+    
     tr_ds = SketchyImageDataset(data_dir = path, transform_dic=transformations, random=True, trainval_json=out_path, trainval='train', load_images=False)
     val_ds = SketchyImageDataset(data_dir = path, transform_dic=transformations, random=True, trainval_json=out_path, trainval='val', load_images=False)
     test_ds = SketchyImageDataset(data_dir = path, transform_dic=transformations, random=True, trainval_json=out_path, trainval='test', load_images=False)
