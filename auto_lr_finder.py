@@ -76,19 +76,6 @@ def run(args):
     labels = {"pos": torch.tensor(1.).unsqueeze(0),
               "neg": torch.tensor(-1.).unsqueeze(0)}
     
-    alpha = 1
-    eps = 5
-    def cos_sim_score(score, eps, alpha, mode):
-        # if score > 0.5:
-        if mode == "for_pos":
-            if score < 0.3:
-                return (score + eps) / (eps + eps*alpha)
-            else:
-                return (score + eps) / (eps + alpha)
-        # elif score > 0.5:
-        elif mode == "for_neg":
-            return (score + (alpha / eps)) / (2*eps)
-    
     assert only_features or only_labels, "Please choose at least one loss function to train the model (triplet loss or crossentropy loss)"
     if only_features and only_labels:
         print("\nTrain using triplet loss and crossentropy loss\n")
