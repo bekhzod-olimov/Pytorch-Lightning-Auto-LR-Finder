@@ -32,13 +32,14 @@ def run(args):
     argstr = yaml.dump(args.__dict__, default_flow_style=False)
     print(f"\nTraining Arguments:\n{argstr}")
     
+    # Log in to the wandb
+    os.system('wandb login 3204eaa1400fed115e40f43c7c6a5d62a0867ed1')
+    
     # Initialize dictionaries
     optimizer_hparams={"lr": lr}
     model_dict[model_name] = 0 
     
-    # Log in to the wandb
-    os.system('wandb login 3204eaa1400fed115e40f43c7c6a5d62a0867ed1')
-    
+    # Transformations
     transformations = {}   
 
     transformations['qry'] = transforms.Compose([
@@ -56,6 +57,7 @@ def run(args):
         AutoAugment.ImageNetPolicy(),
         transforms.ToTensor()])
     
+    # Set path to the json file with data split
     out_path = "data/sketchy_database_256_soft_split_cat.json"
     
     tr_ds = SketchyImageDataset(data_dir = path, transform_dic=transformations, random=True, trainval_json=out_path, trainval='train', load_images=False)
